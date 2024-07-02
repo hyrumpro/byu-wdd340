@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <a href="/account" class="account">My Account</a>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<main>
+    <h1><%= title %></h1>
+    <%- itemHtml %>
+</main>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>
