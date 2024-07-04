@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const path = require('path');
 const utilities = require("./utilities/");
 const baseController = require("./controllers/baseController");
+const session = require("express-session");
+const pool = require('./database/');
+
 
 dotenv.config();
 
@@ -12,6 +15,30 @@ const static = require("./routes/static");
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
+
+
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}));
+
+
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
 
 /* ***********************
  * Routes
