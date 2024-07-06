@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <a href="/account/login" class="account">My Account</a>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+
+<main>
+    <h1>Add New Classification</h1>
+
+    <%- messages() %>
+
+    <form id="addClassificationForm" action="/inv/add-classification" method="post">
+        <p>Classification name cannot contain spaces or special characters.</p>
+        <div class="form-group">
+            <label for="classification_name">Classification Name:</label>
+            <input type="text" id="classification_name" name="classification_name" required pattern="^[a-zA-Z0-9]+$">
+        </div>
+        <button type="submit" class="btn">Add Classification</button>
+    </form>
+</main>
+
+<script>
+    document.getElementById('addClassificationForm').addEventListener('submit', function(event) {
+        const input = document.getElementById('classification_name');
+        if (!/^[a-zA-Z0-9]+$/.test(input.value)) {
+            event.preventDefault();
+            alert('Classification name can only contain letters and numbers.');
+        }
+    });
+</script>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>

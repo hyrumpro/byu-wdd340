@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    <script src="/js/script.js"></script>
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <a href="/account/login" class="account">My Account</a>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<main class="registration-container">
+    <h1 class="registration-title"><%= title %></h1>
+
+    <%- messages() %>
+
+    <form class="registration-form" action="/account/register" method="post">
+        <div class="form-group">
+            <label for="account_firstname">First Name:</label>
+            <input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
+        </div>
+
+        <div class="form-group">
+            <label for="account_lastname">Last Name:</label>
+            <input type="text" id="account_lastname" name="account_lastname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="account_email">Email:</label>
+            <input type="email" id="account_email" name="account_email" required>
+        </div>
+
+        <div class="form-group password-group">
+            <label for="account_password">Password:</label>
+            <div class="password-input-wrapper">
+                <input type="password" id="account_password" name="account_password" required>
+                <button type="button" id="togglePassword" class="toggle-password">Show</button>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>

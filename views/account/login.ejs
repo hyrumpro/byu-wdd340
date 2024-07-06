@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <a href="/account/login" class="account">My Account</a>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<main class="login-container">
+    <h1 class="login-title"><%= title %></h1>
+
+    <form class="login-form" action="/account/login" method="post">
+        <div class="form-group">
+            <label for="account_email">Email</label>
+            <input type="email" id="account_email" name="account_email" required placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="account_password">Password</label>
+            <input type="password" id="account_password" name="account_password" required placeholder="Enter your password">
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+    </form>
+
+    <p class="register-link">No account? <a href="/account/register">Register</a></p>
+</main>
+
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>

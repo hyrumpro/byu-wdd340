@@ -18,8 +18,14 @@
 </header>
 
 <main>
-    <h1><%= title %></h1>
-    <%- itemHtml %>
+    <h1>Inventory Management</h1>
+
+    <%- messages() %>
+
+    <div class="management-links">
+        <a href="/inv/add-classification" class="btn">Add New Classification</a>
+        <a href="/inv/add-inventory" class="btn">Add New Inventory Item</a>
+    </div>
 </main>
 
 <footer>
