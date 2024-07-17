@@ -114,23 +114,59 @@ Util.buildClassificationList = async function (classification_id = null) {
 }
 
 Util.checkJWTToken = (req, res, next) => {
-    if (req.cookies.jwt) {
-        jwt.verify(
-            req.cookies.jwt,
-            process.env.ACCESS_TOKEN_SECRET,
-            function (err, accountData) {
-                if (err) {
-                    res.clearCookie("jwt")
-                    return res.redirect("/account/login")
-                }
-                res.locals.accountData = accountData
-                res.locals.loggedin = 1
-                next()
-            })
+    const token = req.cookies.jwt;
+    console.log("JWT Token:", token); // Debug log
+
+    if (token) {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
+            if (err) {
+                console.log("JWT Verification Error:", err);
+                res.locals.loggedin = 0;
+                res.clearCookie('jwt');
+            } else {
+                console.log("Decoded Token:", decodedToken);
+                res.locals.loggedin = 1;
+                res.locals.accountData = decodedToken;
+            }
+            next();
+        });
     } else {
-        next()
+        res.locals.loggedin = 0;
+        next();
     }
-}
+};
+
+
+Util.setGlobalVariables = (req, res, next) => {
+    res.locals.loggedin = req.cookies.jwt ? 1 : 0;
+    res.locals.accountData = null;
+
+    if (req.cookies.jwt) {
+        try {
+            const decoded = jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET);
+            res.locals.accountData = decoded;
+        } catch (error) {
+            console.error("JWT verification failed:", error);
+        }
+    }
+
+    console.log("Global variables set:", {
+        loggedin: res.locals.loggedin,
+        accountData: res.locals.accountData
+    });
+
+    next();
+};
+
+Util.checkAdminEmployee = (req, res, next) => {
+    if (res.locals.accountData && (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin")) {
+        next();
+    } else {
+        req.flash("notice", "Please log in with appropriate credentials.");
+        return res.redirect("/account/login");
+    }
+};
+
 
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {

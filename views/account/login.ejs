@@ -11,7 +11,6 @@
     <div class="top-header">
         <h1>CSE Motors</h1>
         <% if (locals.loggedin) { %>
-            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
             <a href="/account/logout" class="account">Logout</a>
         <% } else { %>
             <a href="/account/login" class="account">My Account</a>
@@ -24,7 +23,7 @@
 
 <main class="login-container">
     <h1 class="login-title"><%= title %></h1>
-
+    <%- messages() %>
     <form class="login-form" action="/account/login" method="post">
         <div class="form-group">
             <label for="account_email">Email</label>

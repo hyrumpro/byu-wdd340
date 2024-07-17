@@ -22,7 +22,7 @@ router.get('/trigger-error', (req, res, next) => {
     next(err);
 });
 
-router.get("/account", Util.handleErrors(accountController.buildAccountManagement));
+router.get("/account",Util.checkLogin, Util.handleErrors(accountController.buildAccountManagement));
 
 router.get("/inv/type/:classificationId", Util.handleErrors(invController.buildByClassificationId));
 
@@ -30,27 +30,35 @@ router.get("/inv/detail/:inventoryId", Util.handleErrors(invController.getInvent
 
 
 router.get("/account/login", Util.handleErrors(accountController.buildLogin));
+
 router.get("/account/register", Util.handleErrors(accountController.buildRegister));
 
-
-router.get("/inventory/management", Util.handleErrors(invController.buildManagementView))
-
-
-router.get("/inv/add-classification", Util.handleErrors(invController.buildAddClassification))
+router.get("/account/update/:account_id", Util.checkLogin, Util.handleErrors(accountController.buildAccountUpdate));
 
 
-router.get("/inv/add-inventory", Util.handleErrors(invController.buildAddInventory))
+router.get("/inventory/management", Util.checkLogin, Util.checkAdminEmployee, Util.handleErrors(invController.buildManagementView));
+
+
+router.get("/inv/add-classification", Util.checkLogin, Util.checkAdminEmployee, Util.handleErrors(invController.buildManagementView))
+
+
+router.get("/inv/add-inventory", Util.checkLogin, Util.checkAdminEmployee, Util.handleErrors(invController.buildManagementView))
 
 
 router.get("/inv/getInventory/:classification_id", Util.handleErrors(invController.getInventoryJSON))
 
 
-router.get("inv/edit/:inv_id", Util.handleErrors(invController.editInventoryView));
+router.get("inv/edit/:inv_id", Util.checkLogin, Util.checkAdminEmployee, Util.handleErrors(invController.buildManagementView));
 
 
-router.get('/inv/delete/:inv_id', Util.handleErrors(invController.buildDeleteConfirmation));
+router.get('/inv/delete/:inv_id', Util.checkLogin, Util.checkAdminEmployee, Util.handleErrors(invController.buildManagementView));
+
+router.get("/account/logout", Util.handleErrors(accountController.logout));
 
 router.post('/inv/delete', Util.handleErrors(invController.deleteInventoryItem));
+
+
+
 
 
 
@@ -86,6 +94,22 @@ router.post(
     regValidate.checkRegData,
     Util.handleErrors(accountController.registerAccount)
 );
+
+
+router.post("/update",
+    regValidate.updateRules(),
+    regValidate.checkUpdateData,
+    Util.handleErrors(accountController.updateAccount)
+);
+
+// Post route for password change
+router.post("/change-password",
+    regValidate.passwordRules(),
+    regValidate.checkPasswordData,
+    Util.handleErrors(accountController.changePassword)
+);
+
+
 
 router.post("/update/", invController.updateInventory)
 

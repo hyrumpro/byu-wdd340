@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management - CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+    <script src="/js/update-acc.js"></script>
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <% if (loggedin) { %>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<main class="container">
+    <h1><%= title %></h1>
+
+    <% if (messages()) { %>
+        <div class="flash-messages">
+            <%- messages() %>
+        </div>
+    <% } %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form action="/account/update" method="post" class="form">
+        <h2>Account Update</h2>
+        <div class="form-group">
+            <label for="account_firstname">First Name:</label>
+            <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
+        </div>
+        <div class="form-group">
+            <label for="account_lastname">Last Name:</label>
+            <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
+        </div>
+        <div class="form-group">
+            <label for="account_email">Email:</label>
+            <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+        </div>
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+        <button type="submit">Update Account</button>
+    </form>
+
+    <form action="/account/change-password" method="post" class="form">
+        <h2>Change Password</h2>
+        <p>Enter a new password to change your current password. The password must be at least 12 characters long and contain at least 1 uppercase letter, 1 number, and 1 special character.</p>
+        <div class="form-group">
+            <label for="account_password">New Password:</label>
+            <input type="password" id="account_password" name="account_password" required
+                   pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                   title="Password must be at least 12 characters long and contain at least 1 uppercase letter, 1 number, and 1 special character">
+        </div>
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+        <button type="submit">Change Password</button>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+</footer>
+</body>
+</html>

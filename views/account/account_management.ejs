@@ -10,8 +10,7 @@
 <header>
     <div class="top-header">
         <h1>CSE Motors</h1>
-        <% if (locals.loggedin) { %>
-            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
+        <% if (loggedin) { %>
             <a href="/account/logout" class="account">Logout</a>
         <% } else { %>
             <a href="/account/login" class="account">My Account</a>
@@ -21,7 +20,6 @@
         <%- nav %>
     </nav>
 </header>
-
 
 <main>
     <h1>Account Management</h1>
@@ -40,7 +38,16 @@
         </ul>
     <% } %>
 
-    <p>You're logged in.</p>
+    <% if (accountData) { %>
+        <h2>Welcome <%= accountData.account_firstname %></h2>
+
+        <p><a href="/account/update/<%= accountData.account_id %>">Update Account Information</a></p>
+
+        <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
+            <h3>Inventory Management</h3>
+            <p><a href="/inventory/management">Access Inventory Management</a></p>
+        <% } %>
+    <% } %>
 </main>
 
 <footer>
