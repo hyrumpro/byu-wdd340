@@ -96,7 +96,7 @@ accountController.accountLogin = async function(req, res) {
             if(process.env.NODE_ENV === 'development') {
                 res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
             } else {
-                res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+                res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
             }
             return res.redirect("/account/")
         }
@@ -110,7 +110,7 @@ accountController.accountLogin = async function(req, res) {
         })
     } catch (error) {
         console.error("Login error:", error)
-        req.flash("notice", "An error occurred during login. Please try again.")
+        req.flash("notice", "An error occurred during login. Please try again.", error)
         res.status(500).render("account/login", {
             title: "Login",
             nav,
@@ -129,21 +129,6 @@ accountController.buildAccountManagement = async function (req, res) {
     })
 }
 
-accountController.buildAccountUpdate = async function (req, res, next) {
-    const account_id = parseInt(req.params.account_id);
-    let nav = await utilities.getNav();
-    const accountData = await accountModel.getAccountById(account_id);
-
-    res.render("account/update", {
-        title: "Update Account",
-        nav,
-        errors: null,
-        account_id: accountData.account_id,
-        account_firstname: accountData.account_firstname,
-        account_lastname: accountData.account_lastname,
-        account_email: accountData.account_email,
-    });
-};
 
 
 accountController.buildAccountUpdate = async function (req, res, next) {
