@@ -10,7 +10,12 @@
 <header>
     <div class="top-header">
         <h1>CSE Motors</h1>
-        <a href="/account/login" class="account">My Account</a>
+        <% if (locals.loggedin) { %>
+            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
     </div>
     <nav>
         <%- nav %>

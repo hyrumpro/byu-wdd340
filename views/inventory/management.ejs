@@ -10,7 +10,13 @@
 <header>
     <div class="top-header">
         <h1>CSE Motors</h1>
-        <a href="/account/login" class="account">My Account</a>
+        <% console.log("loggedin value:", locals.loggedin) %>
+        <% if (locals.loggedin) { %>
+            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
     </div>
     <nav>
         <%- nav %>
@@ -26,11 +32,26 @@
         <a href="/inv/add-classification" class="btn">Add New Classification</a>
         <a href="/inv/add-inventory" class="btn">Add New Inventory Item</a>
     </div>
+
+    <h2>Manage Inventory</h2>
+    <p>Select a classification from the list to see the items belonging to the classification.</p>
+
+    <% if (locals.classificationList) { %>
+        <%- classificationList %>
+    <% } else { %>
+        <p>No classifications available.</p>
+    <% } %>
+
+    <table id="inventoryDisplay"></table>
+
+    <noscript>JavaScript must be enabled to use this page.</noscript>
 </main>
 
 <footer>
     <p>&copy; 2023, CSE 340 App</p>
     <a href="/trigger-error" id="error-link">Trigger Error</a>
 </footer>
+
+<script src="/js/inventory.js"></script>
 </body>
 </html>

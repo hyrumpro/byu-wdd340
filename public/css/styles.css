@@ -381,6 +381,121 @@ input:focus {
 }
 
 
+#classificationList {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+}
+
+#classificationList option {
+  padding: 5px;
+}
+
+/* Style for the "No classifications available" message */
+.no-classifications {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 5px;
+  color: #856404;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+
+/* Styles for delete confirmation page */
+.delete-confirm {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.delete-confirm h1 {
+  color: #d9534f;
+}
+
+.delete-confirm p {
+  font-weight: bold;
+  color: #d9534f;
+  margin-bottom: 20px;
+}
+
+.delete-confirm form {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.delete-confirm fieldset {
+  border: none;
+  padding: 0;
+}
+
+.delete-confirm legend {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.delete-confirm label {
+  display: block;
+  margin-top: 10px;
+}
+
+.delete-confirm input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+}
+
+.delete-confirm button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.delete-confirm button:hover {
+  background-color: #c9302c;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+
 
 
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <% if (locals.loggedin) { %>
+            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+
+
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
+<main>
+
+<form action="/inv/update" method="post">
+    <label for="classification_id">Classification:</label>
+    <%- classificationSelect %>
+
+    <label for="invMake">Make:</label>
+    <input type="text" name="inv_make" id="invMake" required value="<%= locals.inv_make %>">
+
+    <label for="invModel">Model:</label>
+    <input type="text" name="inv_model" id="invModel" required value="<%= locals.inv_model %>">
+
+    <label for="invDescription">Description:</label>
+    <textarea name="inv_description" id="invDescription" required><%= locals.inv_description %></textarea>
+
+    <label for="invImage">Image Path:</label>
+    <input type="text" name="inv_image" id="invImage" required value="<%= locals.inv_image %>">
+
+    <label for="invThumbnail">Thumbnail Path:</label>
+    <input type="text" name="inv_thumbnail" id="invThumbnail" required value="<%= locals.inv_thumbnail %>">
+
+    <label for="invPrice">Price:</label>
+    <input type="number" name="inv_price" id="invPrice" required value="<%= locals.inv_price %>">
+
+    <label for="invYear">Year:</label>
+    <input type="number" name="inv_year" id="invYear" required value="<%= locals.inv_year %>">
+
+    <label for="invMiles">Miles:</label>
+    <input type="number" name="inv_miles" id="invMiles" required value="<%= locals.inv_miles %>">
+
+    <label for="invColor">Color:</label>
+    <input type="text" name="inv_color" id="invColor" required value="<%= locals.inv_color %>">
+
+    <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+
+    <button type="submit">Update Vehicle</button>
+</form>
+
+</main>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>

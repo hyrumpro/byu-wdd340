@@ -5,7 +5,9 @@ const utilities = require("./utilities/");
 const baseController = require("./controllers/baseController");
 const session = require("express-session");
 const pool = require('./database/');
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
+
 
 dotenv.config();
 
@@ -42,6 +44,8 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(cookieParser());
+
 
 
 /* ***********************
@@ -59,6 +63,8 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
+
+app.use(utilities.checkJWTToken);
 
 /* ***********************
 * Express Error Handler

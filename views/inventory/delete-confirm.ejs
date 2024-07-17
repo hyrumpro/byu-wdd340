@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <% if (locals.loggedin) { %>
+            <a href="/account/" class="account">Welcome <%= locals.accountData.account_firstname %></a>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<main>
+    <h1><%= title %></h1>
+    <%- messages() %>
+
+    <p>Confirm Deletion - The delete is permanent.</p>
+
+    <form action="/inv/delete" method="post">
+        <fieldset>
+            <legend>Delete Vehicle</legend>
+            <label for="inv_make">Make:</label>
+            <input type="text" name="inv_make" id="inv_make" value="<%= inv_make %>" readonly>
+
+            <label for="inv_model">Model:</label>
+            <input type="text" name="inv_model" id="inv_model" value="<%= inv_model %>" readonly>
+
+            <label for="inv_year">Year:</label>
+            <input type="text" name="inv_year" id="inv_year" value="<%= inv_year %>" readonly>
+
+            <label for="inv_price">Price:</label>
+            <input type="text" name="inv_price" id="inv_price" value="<%= inv_price %>" readonly>
+
+            <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+            <button type="submit">Delete Vehicle</button>
+        </fieldset>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>

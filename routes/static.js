@@ -5,7 +5,7 @@ const invController = require("../controllers/invController");
 const regValidate = require('../utilities/account-validation');
 const classValidate = require('../utilities/classification-validation');
 const invValidate = require('../utilities/inventory-validation');
-const { accountController} = require("../controllers/accountController");
+const accountController = require("../controllers/accountController");
 
 // Static Routes
 router.use(express.static("public"));
@@ -22,7 +22,7 @@ router.get('/trigger-error', (req, res, next) => {
     next(err);
 });
 
-router.get("/account", Util.handleErrors(accountController.buildAccount));
+router.get("/account", Util.handleErrors(accountController.buildAccountManagement));
 
 router.get("/inv/type/:classificationId", Util.handleErrors(invController.buildByClassificationId));
 
@@ -33,13 +33,26 @@ router.get("/account/login", Util.handleErrors(accountController.buildLogin));
 router.get("/account/register", Util.handleErrors(accountController.buildRegister));
 
 
-router.get("/inv", Util.handleErrors(invController.buildManagementView))
+router.get("/inventory/management", Util.handleErrors(invController.buildManagementView))
 
 
 router.get("/inv/add-classification", Util.handleErrors(invController.buildAddClassification))
 
 
 router.get("/inv/add-inventory", Util.handleErrors(invController.buildAddInventory))
+
+
+router.get("/inv/getInventory/:classification_id", Util.handleErrors(invController.getInventoryJSON))
+
+
+router.get("inv/edit/:inv_id", Util.handleErrors(invController.editInventoryView));
+
+
+router.get('/inv/delete/:inv_id', Util.handleErrors(invController.buildDeleteConfirmation));
+
+router.post('/inv/delete', Util.handleErrors(invController.deleteInventoryItem));
+
+
 
 
 
@@ -62,9 +75,9 @@ router.post(
 
 router.post(
     "/account/login",
-    (req, res) => {
-        res.status(200).send('login process')
-    }
+    regValidate.loginRules(),
+    regValidate.checkLoginData,
+    Util.handleErrors(accountController.accountLogin)
 )
 
 router.post(
@@ -73,6 +86,8 @@ router.post(
     regValidate.checkRegData,
     Util.handleErrors(accountController.registerAccount)
 );
+
+router.post("/update/", invController.updateInventory)
 
 
 
