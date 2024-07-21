@@ -25,23 +25,6 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
 }
 
-invCont.getInventoryItemById = async function (req, res, next) {
-    const inventoryId = req.params.inventoryId
-    if (isNaN(inventoryId)) {
-        return res.status(400).send("Invalid inventory ID");
-    }
-    const itemData = await invModel.getInventoryItemById(inventoryId)
-    if (!itemData) {
-        return res.status(404).send("No matching vehicle found");
-    }
-    const itemHtml = await utilities.buildInventoryDetailHtml(itemData)
-    let nav = await utilities.getNav()
-    res.render("./inventory/detail", {
-        title: itemData.inv_year + " " + itemData.inv_make + " " + itemData.inv_model,
-        nav,
-        itemHtml
-    })
-}
 
 invCont.getInventoryItemById = async function (req, res, next) {
     const inventoryId = req.params.inventoryId

@@ -80,7 +80,7 @@ Util.buildInventoryDetailHtml = async function(vehicle) {
                 <div class="cta-buttons">
                     <button class="primary-btn">START MY PURCHASE</button>
                     <button class="secondary-btn">CONTACT US</button>
-                    <button class="secondary-btn">SCHEDULE TEST DRIVE</button>
+                    <a href="/testdrive/schedule/${vehicle.inv_id}" class="secondary-btn">SCHEDULE TEST DRIVE</a>
                     <button class="secondary-btn">APPLY FOR FINANCING</button>
                 </div>
                 <a href="#" class="estimate-payments">ESTIMATE PAYMENTS</a>

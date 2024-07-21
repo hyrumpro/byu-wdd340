@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Util = require("../utilities");
 const invController = require("../controllers/invController");
+const testDriveController = require("../controllers/testdriverController")
 const regValidate = require('../utilities/account-validation');
 const classValidate = require('../utilities/classification-validation');
 const invValidate = require('../utilities/inventory-validation');
@@ -57,7 +58,10 @@ router.get("/account/logout", Util.handleErrors(accountController.logout));
 
 router.post('/inv/delete', Util.handleErrors(invController.deleteInventoryItem));
 
-
+router.post('/testdrive/schedule', Util.checkLogin, Util.handleErrors(testDriveController.scheduleTestDrive))
+router.get('/testdrive/schedule/:vehicle_id', Util.checkLogin, Util.handleErrors(testDriveController.showScheduleForm))
+router.get('/testdrive/list', Util.checkLogin, Util.handleErrors(testDriveController.listTestDrives))
+router.post('/testdrive/update', Util.checkLogin, Util.handleErrors(testDriveController.updateTestDriveStatus))
 
 
 

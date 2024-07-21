@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css" media="screen">
+</head>
+<body>
+<header>
+    <div class="top-header">
+        <h1>CSE Motors</h1>
+        <% if (loggedin) { %>
+            <a href="/account/logout" class="account">Logout</a>
+        <% } else { %>
+            <a href="/account/login" class="account">My Account</a>
+        <% } %>
+    </div>
+    <nav>
+        <%- nav %>
+    </nav>
+</header>
+
+<h1><%= title %></h1>
+
+<% if (testDrives.length === 0) { %>
+    <p>No test drives scheduled. Schedule a car in car details</p>
+<% } else { %>
+    <table>
+        <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>Date/Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% testDrives.forEach(drive => { %>
+            <tr>
+                <td><%= drive.vehicle_id %></td>
+                <td><%= drive.date_time %></td>
+                <td><%= drive.status %></td>
+                <td>
+                    <% if (drive.status === 'scheduled') { %>
+                        <form action="/testdrive/update" method="POST">
+                            <input type="hidden" name="id" value="<%= drive.id %>">
+                            <select name="status">
+                                <option value="completed">Complete</option>
+                                <option value="cancelled">Cancel</option>
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    <% } %>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>
+
+<footer>
+    <p>&copy; 2023, CSE 340 App</p>
+    <a href="/trigger-error" id="error-link">Trigger Error</a>
+</footer>
+</body>
+</html>
